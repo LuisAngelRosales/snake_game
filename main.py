@@ -72,8 +72,8 @@ while game_is_on:
             food.refresh(snake.segments)
             snake.grow()
             scoreboard.increase_score()
-            if scoreboard.score % 3 == 0:
-                SPEED -= 0.010
+            if scoreboard.score % 3 == 0 and SPEED>0.03:
+                SPEED -= 0.01
         if snake.colision_with_wall() or snake.colision_with_tail():
             paused = True  # Establecer el estado de pausa al chocar
             scoreboard.game_over()
