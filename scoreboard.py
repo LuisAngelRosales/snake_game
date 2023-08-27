@@ -5,6 +5,9 @@ FONT_SIZE=15
 class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
+        self.score = 0
+        with open("high_score.txt",mode="r") as f:
+            self.high_score=int(f.read())
         self.score_initial_position()
         self.show_score()
         self.pause_turtle = Turtle()
@@ -13,7 +16,6 @@ class Scoreboard(Turtle):
         self.pause_turtle.hideturtle()
 
     def score_initial_position(self):
-        self.score = 0
         self.penup()
         self.color("white")
         self.hideturtle()
@@ -23,7 +25,7 @@ class Scoreboard(Turtle):
         self.show_score()
     def show_score(self):
         self.clear()
-        self.write(f"Score: {self.score}", font=(FONT, FONT_SIZE),align=ALIGNMENT)
+        self.write(f"Score: {self.score} High Score: {self.high_score}", font=(FONT, FONT_SIZE),align=ALIGNMENT)
 
     def game_over(self):
         self.goto(0,0)
@@ -38,6 +40,10 @@ class Scoreboard(Turtle):
                 self.pause_turtle.clear()
 
     def restore(self):
+        if self.score>self.high_score:
+            self.high_score=self.score
+            with open("high_score.txt", mode="w") as f:
+                f.write(str(self.high_score))
         self.score = 0
         self.score_initial_position()
         self.show_score()
